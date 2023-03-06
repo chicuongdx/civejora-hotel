@@ -1,4 +1,10 @@
-import { Controller, Get } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { RoomType } from './interfaces/roomtype.interface';
 import { RoomTypeService } from './roomtype.service';
 
@@ -9,5 +15,16 @@ export class RoomTypeController {
   @Get()
   findAll(): RoomType[] {
     return this.roomtypeService.findAll();
+  }
+
+  @Get(':id')
+  findOne(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ): RoomType {
+    return this.roomtypeService.findOne(id);
   }
 }

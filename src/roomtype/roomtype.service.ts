@@ -44,4 +44,8 @@ export class RoomTypeService {
   findAll(): RoomType[] {
     return this.roomtypes;
   }
+
+  findOne(id: number): RoomType {
+    return this.roomtypes.find((item) => item.roomtype_id === id);
+  }
 }
