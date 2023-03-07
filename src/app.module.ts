@@ -1,7 +1,8 @@
 import { RoomTypeModule } from './roomtype/roomtype.module';
 import { Module } from '@nestjs/common';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { HttpExceptionFilter } from './http-exception.filter';
+import { AuthGuard } from './auth.guard';
 
 @Module({
   imports: [RoomTypeModule],
@@ -9,6 +10,10 @@ import { HttpExceptionFilter } from './http-exception.filter';
     {
       provide: APP_FILTER,
       useClass: HttpExceptionFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
   ],
 })

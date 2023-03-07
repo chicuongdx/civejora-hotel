@@ -1,3 +1,4 @@
+import { AuthGuard } from './auth.guard';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
@@ -14,6 +15,8 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
   app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalGuards(new AuthGuard());
+
   await app.listen(3000);
 }
 bootstrap();
