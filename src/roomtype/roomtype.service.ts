@@ -41,6 +41,8 @@ export class RoomTypeService {
     },
   ];
 
+  // private readonly roomtypes: RoomType[] = null;
+
   findAll(): RoomType[] {
     return this.roomtypes;
   }
