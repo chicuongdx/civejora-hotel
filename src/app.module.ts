@@ -4,11 +4,31 @@ import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { AuthGuard } from './auth.guard';
 import { LoggingInterceptor } from './logging.interceptor';
-import { TransformInterceptor } from './transform.interceptor';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { RoomType } from './roomtype/roomtype.entity';
+import { DataSource } from 'typeorm';
+// import { TransformInterceptor } from './transform.interceptor';
 // import { ExcludeNullInterceptor } from './exclude-null.interceptor';
 
 @Module({
-  imports: [RoomTypeModule],
+  imports: [
+    RoomTypeModule,
+    ConfigModule.forRoot({
+      envFilePath: '.env.development',
+    }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'aneicer123',
+      database: 'civejora',
+      entities: [RoomType],
+      synchronize: true,
+      autoLoadEntities: true,
+    }),
+  ],
   providers: [
     {
       provide: APP_FILTER,
@@ -32,7 +52,9 @@ import { TransformInterceptor } from './transform.interceptor';
     // },
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
 // export class AppModule implements NestModule {
 //   configure(consumer: MiddlewareConsumer) {
 //     consumer.apply(logger).forRoutes(RoomTypeController);

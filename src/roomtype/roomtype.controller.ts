@@ -13,18 +13,18 @@ export class RoomTypeController {
   constructor(private readonly roomtypeService: RoomTypeService) {}
 
   @Get()
-  findAll(): RoomType[] {
+  async findAll(): Promise<RoomType[]> {
     return this.roomtypeService.findAll();
   }
 
   @Get(':id')
-  findOne(
+  async findOne(
     @Param(
       'id',
       new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
     )
     id: number,
-  ): RoomType {
+  ): Promise<RoomType> {
     return this.roomtypeService.findOne(id);
   }
 }
