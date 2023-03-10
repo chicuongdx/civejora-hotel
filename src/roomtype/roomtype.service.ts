@@ -17,4 +17,8 @@ export class RoomTypeService {
   findOne(roomtype_id: number): Promise<RoomType> {
     return this.roomtypesRepository.findOneBy({ roomtype_id });
   }
+
+  create(roomtype: RoomType): Promise<RoomType> {
+    return this.roomtypesRepository.save(roomtype);
+  }
 }

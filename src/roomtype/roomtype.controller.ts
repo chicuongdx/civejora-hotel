@@ -1,9 +1,11 @@
 import {
+  Body,
   Controller,
   Get,
   HttpStatus,
   Param,
   ParseIntPipe,
+  Post,
 } from '@nestjs/common';
 import { RoomType } from './interfaces/roomtype.interface';
 import { RoomTypeService } from './roomtype.service';
@@ -26,5 +28,10 @@ export class RoomTypeController {
     id: number,
   ): Promise<RoomType> {
     return this.roomtypeService.findOne(id);
+  }
+
+  @Post()
+  async create(@Body() roomtype: RoomType): Promise<RoomType> {
+    return this.roomtypeService.create(roomtype);
   }
 }

@@ -1,5 +1,5 @@
 // import { ExcludeNullInterceptor } from './exclude-null.interceptor';
-// import { TransformInterceptor } from './transform.interceptor';
+import { TransformInterceptor } from './transform.interceptor';
 import { AuthGuard } from './auth.guard';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
@@ -7,7 +7,8 @@ import { AppModule } from './app.module';
 import { logger } from './logger.middleware';
 import { AllExceptionsFilter } from './all-exceptions.filter';
 import { ValidationPipe } from '@nestjs/common';
-import { LoggingInterceptor } from './logging.interceptor';
+import 'reflect-metadata';
+// import { LoggingInterceptor } from './logging.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,8 +22,8 @@ async function bootstrap() {
 
   app.useGlobalGuards(new AuthGuard());
 
-  app.useGlobalInterceptors(new LoggingInterceptor());
-  // app.useGlobalInterceptors(new TransformInterceptor());
+  // app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalInterceptors(new TransformInterceptor());
   // app.useGlobalInterceptors(new ExcludeNullInterceptor());
 
   await app.listen(3000);
