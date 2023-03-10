@@ -1,4 +1,3 @@
-// import { ExcludeNullInterceptor } from './exclude-null.interceptor';
 import { TransformInterceptor } from './transform.interceptor';
 import { AuthGuard } from './auth.guard';
 import { HttpExceptionFilter } from './http-exception.filter';
@@ -8,6 +7,7 @@ import { logger } from './logger.middleware';
 import { AllExceptionsFilter } from './all-exceptions.filter';
 import { ValidationPipe } from '@nestjs/common';
 import 'reflect-metadata';
+import { ExcludeNullInterceptor } from './exclude-null.interceptor';
 // import { LoggingInterceptor } from './logging.interceptor';
 
 async function bootstrap() {
@@ -23,8 +23,8 @@ async function bootstrap() {
   app.useGlobalGuards(new AuthGuard());
 
   // app.useGlobalInterceptors(new LoggingInterceptor());
-  app.useGlobalInterceptors(new TransformInterceptor());
-  // app.useGlobalInterceptors(new ExcludeNullInterceptor());
+  // app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalInterceptors(new ExcludeNullInterceptor());
 
   await app.listen(3000);
 }
