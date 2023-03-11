@@ -1,6 +1,6 @@
 import { RoomModule } from './roominfor/roominfor.module';
 import { RoomTypeModule } from './roomtype/roomtype.module';
-import { Module } from '@nestjs/common';
+import { CACHE_MANAGER, Module, Scope } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { AuthGuard } from './auth.guard';
